@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr-MainScene.unity
+    guid: 75b2bfa0a179f4ebd9de887f3b11ab4c
+  m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d75d6c7bbba294843903efaf597b4896,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3fb357383ecaa9249b654fbf36beb3b3,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 76ccfac644c7d2142bf92999db4fa247,
+      type: 2}
