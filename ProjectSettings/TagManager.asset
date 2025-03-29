@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - DockUI
+  - MaskUI
+  - CenterCanvas
+  - WindowUI
+  - Cube
+  - DialogParent
+  - UIParent
   layers:
   - Default
   - TransparentFX
@@ -11,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PostProcessing
   - 
   - 
   - 
