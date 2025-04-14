@@ -78,3 +78,5 @@ crashlytics-build.properties
 .github/
 Packages/packages-lock.json
 
+# large File
+/[Aa]ssets/[Aa]rts/[Mm]odel
