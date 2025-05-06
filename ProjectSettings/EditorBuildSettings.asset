@@ -5,12 +5,72 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 6d3075bce70a79d41bd0f93f8e77890f
+  - enabled: 0
     path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr-MainScene.unity
     guid: 75b2bfa0a179f4ebd9de887f3b11ab4c
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr000-HelloRokid.unity
+    guid: 90fd523f3a166413db3aaca9240d4a3e
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr001-HeadTracking.unity
+    guid: 3e953fce929744d64b16d0caa214371d
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr003-VoiceRecognize.unity
+    guid: 18793b1a44ffa461f8b699c6329ffb04
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr004-IPD.unity
+    guid: f3959e58e184c4149a897dde4fc6963f
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr005-GamePadController.unity
+    guid: 4e0f2224caaba46d9ac156e475df1d75
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr006-Phone3DofController.unity
+    guid: 0921263d49c3949a0b9694962774d04a
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr008-CameraPreview.unity
+    guid: 6e1e5170368da9b4985c28c925cd8dcf
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr009-WebViewController.unity
+    guid: 9b8f569a32f7e4e1d98b0741fecd3402
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr011-ImageTracking.unity
+    guid: 6ae80f57abd48421abf6e22d9b9f6bf0
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr012-RKHandRay.unity
+    guid: f60ef464a94f0450aa27050e211131e7
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr013-RKMultiInteractor.unity
+    guid: 080ba40ccd1ec4c08a82af8d9fd32d98
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr014-RKSensorAPI.unity
+    guid: b14b889ad6a76744399b98163891baad
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr015-RKHandGrab.unity
+    guid: a7bef1b594e754c41a72fa3d8608a7b6
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr016-UIOverlay.unity
+    guid: e1124b921f8574fc6ba2c47bc78ab651
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr017-TouchPadRay.unity
+    guid: 01ed052d21132420e97611a7a6a38618
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr018-PlaneTracking.unity
+    guid: f70a6c054c897429f9f9e2157238748a
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr019-StationProForNewInputSystem.unity
+    guid: 868db15e23215485c976bf44fc11e82f
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr020-RKAdsorbUI.unity
+    guid: fb540deb628064e5b98cc4cc5b6959fb
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr021-ColliderDrag.unity
+    guid: a238b915fa9bc419fb0435accf3bb7e7
+  - enabled: 0
+    path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr022-WindowFollow.unity
+    guid: 322a0a4cb4331426ab8a4900db1c1472
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d75d6c7bbba294843903efaf597b4896,
       type: 2}
