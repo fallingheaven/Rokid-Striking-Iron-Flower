@@ -11,6 +11,8 @@ TagManager:
   - Cube
   - DialogParent
   - UIParent
+  - IronLiquidContainer
+  - IronLiquid
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - UI
   - PostProcessing
   - 
-  - 
-  - 
-  - 
+  - Bucket
+  - Spoon
+  - Hammer
   - 
   - 
   - 
