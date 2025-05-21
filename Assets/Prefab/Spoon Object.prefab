@@ -123,14 +123,13 @@ GameObject:
   - component: {fileID: 4312579670683792885}
   - component: {fileID: 7163509379148535304}
   - component: {fileID: 5687665008402045196}
-  - component: {fileID: 2404103144411382373}
   - component: {fileID: 4252381586375672372}
   - component: {fileID: 3385228635508437585}
   - component: {fileID: 6363576608067180695}
-  - component: {fileID: 4586903908621468124}
   - component: {fileID: 8121218311842816992}
   - component: {fileID: 8040478590973573778}
   - component: {fileID: 6022376662034540999}
+  - component: {fileID: 6914287928653479302}
   m_Layer: 0
   m_Name: Spoon Object
   m_TagString: Untagged
@@ -154,7 +153,7 @@ Transform:
   - {fileID: 3088365407473827877}
   - {fileID: 640021129707112346}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &7163509379148535304
 Rigidbody:
@@ -200,61 +199,6 @@ MonoBehaviour:
   estimateOnAwake: 0
   velocitySamples: []
   angularVelocitySamples: []
---- !u!114 &2404103144411382373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981192134684376387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777565b974c474bfd8039e9bee64aaf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbedFlags: 77
-  grabbedOffset: {fileID: 0}
-  catchingSpeedThreshold: -1
-  releaseVelocityStyle: 0
-  releaseVelocityTimeOffset: -0.011
-  scaleReleaseVelocity: 5
-  scaleReleaseAngularVelocity: 1
-  scaleReleaseVelocityThreshold: 1
-  scaleReleaseVelocityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  restoreOriginalParent: 1
-  OnPickUp:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDropDown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHeldUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  interactable: {fileID: 0}
 --- !u!114 &4252381586375672372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,25 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 2053290704153755283}
---- !u!114 &4586903908621468124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981192134684376387}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2904ef4d4e1f54baeb5b0f2249c9864e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minPoint: {x: -2, y: -0.8, z: -2}
-  maxPoint: {x: 2, y: 1.2, z: 2}
-  lookAtCamera: 0
-  clampInTargetFiled: 0
-  followObj: {fileID: 0}
-  smoothSpeed: 10
-  lookAtChangeThreshold: 0.3
 --- !u!135 &8121218311842816992
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -439,6 +364,62 @@ MonoBehaviour:
   throwVelocityThreshold: 10
   throwForce: 5
   dropletSize: 0.01
+--- !u!114 &6914287928653479302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6981192134684376387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a928629b19514c9cb894387fef6dfb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbedFlags: 73
+  grabbedOffset: {fileID: 0}
+  catchingSpeedThreshold: -1
+  releaseVelocityStyle: 1
+  releaseVelocityTimeOffset: -0.011
+  scaleReleaseVelocity: 1.1
+  scaleReleaseAngularVelocity: 1
+  scaleReleaseVelocityThreshold: -1
+  scaleReleaseVelocityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  restoreOriginalParent: 0
+  OnPickUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHeldUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  interactable: {fileID: 0}
+  allowRelease: 0
 --- !u!1001 &6437251754303421473
 PrefabInstance:
   m_ObjectHideFlags: 0
