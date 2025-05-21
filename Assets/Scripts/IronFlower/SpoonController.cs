@@ -66,7 +66,7 @@ namespace IronFlower
             // FollowHandOrientation();
 
             // 检测甩动动作
-            CheckThrowMotion();
+            // CheckThrowMotion();
         }
 
         private void FollowHandOrientation()

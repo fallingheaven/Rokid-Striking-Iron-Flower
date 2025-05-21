@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 6d3075bce70a79d41bd0f93f8e77890f
   - enabled: 0
@@ -71,6 +71,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/Rokid UXR SDK/3.0.3/UXR Sample/Scenes/uxr022-WindowFollow.unity
     guid: 322a0a4cb4331426ab8a4900db1c1472
+  - enabled: 1
+    path: Assets/Scenes/HandTest.unity
+    guid: f4b2d717b3ff0a945b18a9422c509820
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d75d6c7bbba294843903efaf597b4896,
       type: 2}

@@ -11,14 +11,13 @@ GameObject:
   - component: {fileID: 7670593267749293665}
   - component: {fileID: 7444358733751585305}
   - component: {fileID: 7015073416707655904}
-  - component: {fileID: 5195404249368550400}
   - component: {fileID: 9215630776529876934}
   - component: {fileID: 731822468310662264}
   - component: {fileID: 7764907130621612184}
-  - component: {fileID: 6402212144297372139}
   - component: {fileID: 2845296588598836221}
   - component: {fileID: 3089469093297486530}
   - component: {fileID: 9182873265564843462}
+  - component: {fileID: 5608527639536231842}
   m_Layer: 0
   m_Name: Hammer Object
   m_TagString: Untagged
@@ -88,61 +87,6 @@ MonoBehaviour:
   estimateOnAwake: 0
   velocitySamples: []
   angularVelocitySamples: []
---- !u!114 &5195404249368550400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233661389028715493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777565b974c474bfd8039e9bee64aaf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbedFlags: 77
-  grabbedOffset: {fileID: 0}
-  catchingSpeedThreshold: -1
-  releaseVelocityStyle: 0
-  releaseVelocityTimeOffset: -0.011
-  scaleReleaseVelocity: 5
-  scaleReleaseAngularVelocity: 1
-  scaleReleaseVelocityThreshold: 1
-  scaleReleaseVelocityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  restoreOriginalParent: 1
-  OnPickUp:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDropDown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHeldUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  interactable: {fileID: 0}
 --- !u!114 &9215630776529876934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,25 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1823358133361340870}
---- !u!114 &6402212144297372139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233661389028715493}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2904ef4d4e1f54baeb5b0f2249c9864e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minPoint: {x: -2, y: -0.8, z: -2}
-  maxPoint: {x: 2, y: 1.2, z: 2}
-  lookAtCamera: 0
-  clampInTargetFiled: 0
-  followObj: {fileID: 0}
-  smoothSpeed: 10
-  lookAtChangeThreshold: 0.3
 --- !u!114 &2845296588598836221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +237,62 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.76, y: 10.91, z: 2.46}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &5608527639536231842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233661389028715493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a928629b19514c9cb894387fef6dfb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabbedFlags: 73
+  grabbedOffset: {fileID: 0}
+  catchingSpeedThreshold: -1
+  releaseVelocityStyle: 1
+  releaseVelocityTimeOffset: -0.011
+  scaleReleaseVelocity: 1.1
+  scaleReleaseAngularVelocity: 1
+  scaleReleaseVelocityThreshold: -1
+  scaleReleaseVelocityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  restoreOriginalParent: 0
+  OnPickUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHeldUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  interactable: {fileID: 0}
+  allowRelease: 0
 --- !u!1 &5858919190321561943
 GameObject:
   m_ObjectHideFlags: 0
