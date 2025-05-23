@@ -8,7 +8,7 @@ namespace IronFlower
         
         private void OnEnable()
         {
-            SceneLoader.Instance.LoadScene(sceneName);
+            SceneLoader.Instance.LoadSceneKeepPersistent(sceneName);
         }
     }
 }
