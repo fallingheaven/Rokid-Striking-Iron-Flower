@@ -1,4 +1,5 @@
-﻿using Rokid.UXR.Interaction;
+﻿using System;
+using Rokid.UXR.Interaction;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ namespace IronFlower
         [SerializeField]
         private bool _ironFilled = false;
         
+        private bool _finished = false;
+        
         private void OnEnable()
         {
             GameEvents.handFanEvent.AddListener(OnHandFan);
@@ -21,9 +24,23 @@ namespace IronFlower
             GameEvents.handFanEvent.RemoveListener(OnHandFan);
         }
 
+        private void Update()
+        {
+            if (_ironFilled)
+            {
+                progressSlider.value += 0.2f * Time.deltaTime;
+                
+                if (!_finished && progressSlider.value >= 1)
+                {
+                    SceneLoader.Instance.LoadSceneKeepPersistent("Scene02");
+                    _finished = true;
+                }
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.GetMask("Iron"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Iron"))
             {
                 // 处理铁块进入炉子
                 Debug.Log("Iron block entered the furnace.");
@@ -31,7 +48,7 @@ namespace IronFlower
                 _ironFilled = true;
 
                 // 禁止交互
-                Destroy(other.GetComponent<RayInteractable>());
+                // Destroy(other.GetComponent<RayInteractable>());
             }
         }
 
@@ -45,9 +62,10 @@ namespace IronFlower
             // 最少扇五次
             progressSlider.value += Mathf.Max(2f, movement.magnitude) * 0.1f;
 
-            if (progressSlider.value >= 1)
+            if (!_finished && progressSlider.value >= 1)
             {
-                SceneLoader.Instance.LoadScene("Scene02");
+                SceneLoader.Instance.LoadSceneKeepPersistent("Scene02");
+                _finished = true;
             }
         }
     }

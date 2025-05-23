@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,12 +30,19 @@ namespace IronFlower
         [Header("过渡界面设置")]
         [SerializeField] private GameObject loadingScreen;
         [SerializeField] private Slider progressBar;
-        [SerializeField] private Text progressText;
+        [SerializeField] private TextMeshProUGUI progressText;
         [SerializeField] private float fadeDuration = 0.5f;
         [SerializeField] private CanvasGroup fadeCanvasGroup;
 
+        [Header("场景设置")]
+        [SerializeField] private string persistentSceneName = "Persistent"; // 常驻场景名称
+        [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
+        
         // 场景数据字典，用于场景间传递数据
         private static Dictionary<string, object> sceneData = new Dictionary<string, object>();
+        
+        // 当前活动的场景名（除了常驻场景）
+        [SerializeField] private string _currentSceneName;
 
         private void Awake()
         {
@@ -46,12 +54,11 @@ namespace IronFlower
 
             _instance = this;
             DontDestroyOnLoad(gameObject);
+        }
 
-            // 如果在Inspector中没有指定加载界面，则动态创建一个简单的加载界面
-            if (loadingScreen == null)
-            {
-                CreateBasicLoadingScreen();
-            }
+        private void OnEnable()
+        {
+            LoadSceneKeepPersistent(initialSceneName);
         }
 
         /// <summary>
@@ -90,12 +97,158 @@ namespace IronFlower
         }
 
         /// <summary>
-        /// 同步加载场景
+        /// 同步加载场景（单场景模式，会卸载其他所有场景包括常驻场景）
         /// </summary>
         /// <param name="sceneName">场景名称</param>
         public void LoadScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
+            _currentSceneName = sceneName;
+        }
+        
+        /// <summary>
+        /// 加载场景并保持常驻场景不变
+        /// </summary>
+        /// <param name="sceneName">要加载的场景名称</param>
+        /// <param name="unloadCurrent">是否卸载当前场景（不包括常驻场景）</param>
+        public void LoadSceneKeepPersistent(string sceneName, bool unloadCurrent = true)
+        {
+            if (progressBar != null)
+                progressBar.value = 0f;
+            if (progressText != null)
+                progressText.text = $"Loading: 0%";
+            
+            StartCoroutine(LoadSceneKeepPersistentCoroutine(sceneName, unloadCurrent));
+        }
+        
+        private IEnumerator LoadSceneKeepPersistentCoroutine(string sceneName, bool unloadCurrent)
+        {
+            // 显示加载界面
+            if (loadingScreen != null)
+                loadingScreen.SetActive(true);
+
+            // 淡入效果
+            yield return StartCoroutine(FadeIn());
+
+            // 安全卸载当前场景（如果需要）
+            if (unloadCurrent && !string.IsNullOrEmpty(_currentSceneName) && 
+                _currentSceneName != persistentSceneName)
+            {
+                // 检查场景是否有效且已加载
+                bool sceneExists = false;
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    Scene checkScene = SceneManager.GetSceneAt(i);
+                    if (checkScene.name == _currentSceneName && checkScene.isLoaded)
+                    {
+                        sceneExists = true;
+                        break;
+                    }
+                }
+
+                if (sceneExists)
+                {
+                    AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(_currentSceneName);
+                    // 确保unloadOperation不为null再继续
+                    if (unloadOperation != null)
+                    {
+                        while (!unloadOperation.isDone)
+                        {
+                            yield return null;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"场景 {_currentSceneName} 不存在或未加载，跳过卸载");
+                }
+            }
+
+            // 检查常驻场景是否已加载
+            bool isPersistentLoaded = false;
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == persistentSceneName)
+                {
+                    isPersistentLoaded = true;
+                    break;
+                }
+            }
+
+            // 如果常驻场景未加载，先加载它
+            if (!isPersistentLoaded)
+            {
+                AsyncOperation persistentLoadOperation = SceneManager.LoadSceneAsync(persistentSceneName, LoadSceneMode.Additive);
+                while (!persistentLoadOperation.isDone)
+                {
+                    yield return null;
+                }
+            }
+            
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == sceneName)
+                {
+                    Debug.Log($"场景 {sceneName} 已加载，将设为活动场景");
+                    Scene loadedScene = SceneManager.GetSceneAt(i);
+                    yield return null;
+                    SceneManager.SetActiveScene(loadedScene);
+                    _currentSceneName = sceneName;
+                    yield return StartCoroutine(FadeOut());
+                    loadingScreen?.SetActive(false);
+                    yield break;
+                }
+            }
+
+            // 加载新场景（如果不是常驻场景）
+            if (sceneName != persistentSceneName)
+            {
+                AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                
+                // 更新进度条
+                while (!asyncOperation.isDone)
+                {
+                    // 进度值在0-0.9之间
+                    float progress = Mathf.Clamp01(asyncOperation.progress);
+
+                    if (progressBar != null)
+                        progressBar.value = progress;
+
+                    if (progressText != null)
+                        progressText.text = $"Loading: {(int)(progress * 100)}%";
+
+                    yield return null;
+                }
+
+                // 等待一帧以确保场景完全加载
+                yield return null;
+
+                try
+                {
+                    // 获取新加载的场景并设置为活动场景
+                    Scene newScene = SceneManager.GetSceneByName(sceneName);
+                    if (newScene.IsValid() && newScene.isLoaded)
+                    {
+                        SceneManager.SetActiveScene(newScene);
+                        _currentSceneName = sceneName;
+                        Debug.Log($"成功设置场景 {sceneName} 为活动场景");
+                    }
+                    else
+                    {
+                        Debug.LogError($"无法设置场景 {sceneName} 为活动场景：场景无效或未加载");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"设置活动场景时出错: {e.Message}");
+                }
+            }
+
+            // 淡出效果
+            yield return StartCoroutine(FadeOut());
+
+            // 隐藏加载界面
+            loadingScreen?.SetActive(false);
         }
 
         /// <summary>
@@ -105,16 +258,37 @@ namespace IronFlower
         /// <param name="onSceneLoaded">场景加载完成的回调</param>
         public void LoadSceneAsync(string sceneName, Action onSceneLoaded = null)
         {
+            if (progressBar != null)
+                progressBar.value = 0f;
+            if (progressText != null)
+                progressText.text = $"Loading: 0%";
+            
             StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onSceneLoaded));
         }
 
         private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action onSceneLoaded)
         {
             // 显示加载界面
-            loadingScreen.SetActive(true);
+            if (loadingScreen != null)
+                loadingScreen.SetActive(true);
 
             // 淡入效果
             yield return StartCoroutine(FadeIn());
+            
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == sceneName)
+                {
+                    Debug.Log($"场景 {sceneName} 已加载，将设为活动场景");
+                    Scene loadedScene = SceneManager.GetSceneAt(i);
+                    yield return null;
+                    SceneManager.SetActiveScene(loadedScene);
+                    _currentSceneName = sceneName;
+                    yield return StartCoroutine(FadeOut());
+                    loadingScreen?.SetActive(false);
+                    yield break;
+                }
+            }
 
             // 开始异步加载场景
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
@@ -125,12 +299,12 @@ namespace IronFlower
             {
                 // 进度值在0-0.9之间，加载完成时为0.9
                 float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-                
+
                 if (progressBar != null)
                     progressBar.value = progress;
-                
+
                 if (progressText != null)
-                    progressText.text = $"{(int)(progress * 100)}%";
+                    progressText.text = $"加载中：{(int)(progress * 100)}%";
 
                 // 当加载进度到达0.9（即100%）时，允许场景激活
                 if (asyncOperation.progress >= 0.9f)
@@ -142,15 +316,36 @@ namespace IronFlower
 
                 yield return null;
             }
+            
+            _currentSceneName = sceneName;
 
             // 淡出效果
             yield return StartCoroutine(FadeOut());
 
             // 隐藏加载界面
-            loadingScreen.SetActive(false);
+            if (loadingScreen != null)
+                loadingScreen.SetActive(false);
 
             // 调用回调
             onSceneLoaded?.Invoke();
+        }
+        
+        /// <summary>
+        /// 卸载指定场景（但不会卸载常驻场景）
+        /// </summary>
+        /// <param name="sceneName">要卸载的场景名称</param>
+        public AsyncOperation UnloadScene(string sceneName)
+        {
+            if (sceneName == persistentSceneName)
+            {
+                Debug.LogWarning("尝试卸载常驻场景，操作已被忽略");
+                return null;
+            }
+            
+            if (_currentSceneName == sceneName)
+                _currentSceneName = persistentSceneName;
+                
+            return SceneManager.UnloadSceneAsync(sceneName);
         }
 
         private IEnumerator FadeIn()
@@ -183,56 +378,6 @@ namespace IronFlower
                 }
                 fadeCanvasGroup.alpha = 0;
             }
-        }
-
-        private void CreateBasicLoadingScreen()
-        {
-            // 创建基本的加载UI
-            GameObject canvasGO = new GameObject("LoadingCanvas");
-            canvasGO.transform.SetParent(transform);
-            Canvas canvas = canvasGO.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasGO.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            canvasGO.AddComponent<GraphicRaycaster>();
-
-            // 创建黑色背景
-            GameObject bgGO = new GameObject("Background");
-            bgGO.transform.SetParent(canvas.transform, false);
-            Image bgImage = bgGO.AddComponent<Image>();
-            bgImage.color = new Color(0, 0, 0, 0.8f);
-            RectTransform bgRect = bgImage.rectTransform;
-            bgRect.anchorMin = Vector2.zero;
-            bgRect.anchorMax = Vector2.one;
-            bgRect.offsetMin = bgRect.offsetMax = Vector2.zero;
-
-            // 创建进度条
-            GameObject sliderGO = new GameObject("ProgressBar");
-            sliderGO.transform.SetParent(canvas.transform, false);
-            progressBar = sliderGO.AddComponent<Slider>();
-            RectTransform sliderRect = progressBar.GetComponent<RectTransform>();
-            sliderRect.anchorMin = new Vector2(0.1f, 0.4f);
-            sliderRect.anchorMax = new Vector2(0.9f, 0.5f);
-            sliderRect.offsetMin = sliderRect.offsetMax = Vector2.zero;
-
-            // 创建进度文本
-            GameObject textGO = new GameObject("ProgressText");
-            textGO.transform.SetParent(canvas.transform, false);
-            progressText = textGO.AddComponent<Text>();
-            progressText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            progressText.alignment = TextAnchor.MiddleCenter;
-            progressText.color = Color.white;
-            progressText.fontSize = 24;
-            RectTransform textRect = progressText.rectTransform;
-            textRect.anchorMin = new Vector2(0.1f, 0.55f);
-            textRect.anchorMax = new Vector2(0.9f, 0.65f);
-            textRect.offsetMin = textRect.offsetMax = Vector2.zero;
-
-            // 设置淡入淡出效果的CanvasGroup
-            fadeCanvasGroup = canvasGO.AddComponent<CanvasGroup>();
-
-            // 保存加载界面并默认隐藏
-            loadingScreen = canvasGO;
-            loadingScreen.SetActive(false);
         }
     }
 }
