@@ -77,6 +77,7 @@ crashlytics-build.properties
 .vsconfig
 .github/
 Packages/packages-lock.json
+.vscode/
 
 # large File
 /[Aa]ssets/[Aa]rts/[Mm]odel

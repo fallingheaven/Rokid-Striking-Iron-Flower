@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb52d22007a5a944beaa3ac16d0610d, type: 3}
+  m_Name: AudioClipCollection
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 82a7cc4e925dee34c8bae0de7104478a, type: 3}
+  - {fileID: 8300000, guid: 3d120c7fc2babac4f97987edded28347, type: 3}
+  texts:
+  - "\u6B22\u8FCE\u6765\u5230\u300A\u6253\u4E0A\u82B1\u706B\u300B\u7684\u4E16\u754C"
+  - "\u63A5\u4E0B\u6765\u8BF7\u6309\u7167\u6307\u793A\u8FDB\u884C\u6E38\u73A9"
