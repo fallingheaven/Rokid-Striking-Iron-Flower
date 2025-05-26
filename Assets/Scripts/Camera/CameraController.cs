@@ -122,6 +122,7 @@ public class WorldSpaceCameraController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Camera.main?.transform.eulerAngles);
         // 右键按下时锁定光标
         if (IsRightMouseButtonDown())
             Cursor.lockState = CursorLockMode.Locked;
