@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4375328494808718091}
   m_Layer: 0
   m_Name: Iron Liquid
-  m_TagString: IronLiquid
+  m_TagString: IronLiquidContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
