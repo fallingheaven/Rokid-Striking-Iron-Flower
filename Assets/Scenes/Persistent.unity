@@ -523,10 +523,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6B22\u8FCE\u6765\u5230\u300A\u6253\u4E0A\u82B1\u706B\u300B\u7684\u4E16\u754C"
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7a0eb98759922f244b884a7a3e30eb6d, type: 2}
-  m_sharedMaterial: {fileID: -2852282098787052069, guid: 7a0eb98759922f244b884a7a3e30eb6d,
+  m_fontAsset: {fileID: 11400000, guid: 820f5768ef465e4479b90556d14f032a, type: 2}
+  m_sharedMaterial: {fileID: 6849878853804833830, guid: 820f5768ef465e4479b90556d14f032a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3054,7 +3054,6 @@ GameObject:
   - component: {fileID: 1876054678}
   - component: {fileID: 1876054680}
   - component: {fileID: 1876054679}
-  - component: {fileID: 1876054681}
   - component: {fileID: 1876054682}
   m_Layer: 0
   m_Name: AudioManager
@@ -3093,7 +3092,7 @@ MonoBehaviour:
   clipCollection: {fileID: 11400000, guid: 5d523832bc69ede4aab3dca76aeb5660, type: 2}
   audioSource: {fileID: 1876054680}
   guideText: {fileID: 534369451}
-  revealSpeedMultiplier: 5
+  revealSpeedMultiplier: 10
 --- !u!82 &1876054680
 AudioSource:
   m_ObjectHideFlags: 0
