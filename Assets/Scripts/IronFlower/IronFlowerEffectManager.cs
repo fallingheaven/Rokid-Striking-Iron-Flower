@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -6,6 +7,8 @@ namespace IronFlower
     public class IronFlowerEffectManager : MonoBehaviour
     {
         [SerializeField] private VisualEffect ironFlowerVFX;
+        public List<VisualEffect> ironFlowerVFXList;
+        private bool _firstTime = true;
         public static Vector3 directionOffset = new Vector3(-0.6f, -0.6f, -0.6f);
         
         private void OnEnable()
@@ -32,6 +35,16 @@ namespace IronFlower
             // 开始播放
             // ironFlowerVFX.Play();
             ironFlowerVFX.SendEvent("OnPlay");
+
+            if (_firstTime)
+            {
+                _firstTime = false;
+
+                foreach (var effect in ironFlowerVFXList)
+                {
+                    effect.SendEvent("OnPlay");
+                }
+            }
         }
     }
 }
