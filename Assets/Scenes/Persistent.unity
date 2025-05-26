@@ -412,10 +412,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6B22\u8FCE\u6765\u5230\u300A\u6253\u4E0A\u82B1\u706B\u300B\u7684\u4E16\u754C"
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7a0eb98759922f244b884a7a3e30eb6d, type: 2}
-  m_sharedMaterial: {fileID: -2852282098787052069, guid: 7a0eb98759922f244b884a7a3e30eb6d,
+  m_fontAsset: {fileID: 11400000, guid: 820f5768ef465e4479b90556d14f032a, type: 2}
+  m_sharedMaterial: {fileID: 6849878853804833830, guid: 820f5768ef465e4479b90556d14f032a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -774,7 +774,7 @@ RectTransform:
   m_GameObject: {fileID: 698117514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.33}
-  m_LocalScale: {x: 0.0004037298, y: 0.0003198867, z: 1}
+  m_LocalScale: {x: 0.00040122407, y: 0.0003198867, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 649665101}
@@ -2137,7 +2137,6 @@ GameObject:
   - component: {fileID: 1876054678}
   - component: {fileID: 1876054680}
   - component: {fileID: 1876054679}
-  - component: {fileID: 1876054681}
   - component: {fileID: 1876054682}
   m_Layer: 0
   m_Name: AudioManager
@@ -2176,7 +2175,7 @@ MonoBehaviour:
   clipCollection: {fileID: 11400000, guid: 5d523832bc69ede4aab3dca76aeb5660, type: 2}
   audioSource: {fileID: 1876054680}
   guideText: {fileID: 534369451}
-  revealSpeedMultiplier: 5
+  revealSpeedMultiplier: 10
 --- !u!82 &1876054680
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2273,19 +2272,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1876054681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876054677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 727160cf84b8da843a73f8905b882f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1876054679}
 --- !u!114 &1876054682
 MonoBehaviour:
   m_ObjectHideFlags: 0
