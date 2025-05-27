@@ -81,6 +81,8 @@ namespace IronFlower
                 }
             }
         }
+        
+        private bool _nextStageTriggered = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -90,6 +92,10 @@ namespace IronFlower
                 _ironFilled = true;
                 
                 AudioManager.Instance.PlayAudio(ironDroppedSound, other.transform.position, 0.15f);
+
+                if (_nextStageTriggered) return;
+                GameEvents.OnPlayNextGuideClip();
+                _nextStageTriggered = true;
             }
         }
 

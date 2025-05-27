@@ -429,6 +429,41 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 8.145999
       objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 599199005}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayPickedSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IronFlower.SpoonController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214459413062590795, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6510387015491466506, guid: 7be99d00b4b46e3459ce257b270b1dff,
         type: 3}
       propertyPath: pickedSound
@@ -439,6 +474,41 @@ PrefabInstance:
       propertyPath: scoopUpSound
       value: 
       objectReference: {fileID: 8300000, guid: ae8fcd242226f07438e140529320cbeb, type: 3}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 599199006}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayPickedSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IronFlower.HammerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227427217563598811, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8224253313217477648, guid: 7be99d00b4b46e3459ce257b270b1dff,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -467,6 +537,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 599199003}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &599199005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6510387015491466506, guid: 7be99d00b4b46e3459ce257b270b1dff,
+    type: 3}
+  m_PrefabInstance: {fileID: 599199003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f16b847afa7844b941d008252632cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &599199006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1073267124237640068, guid: 7be99d00b4b46e3459ce257b270b1dff,
+    type: 3}
+  m_PrefabInstance: {fileID: 599199003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3b219455ec9f84a891e68fc0079148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1721380075
 PrefabInstance:
   m_ObjectHideFlags: 0

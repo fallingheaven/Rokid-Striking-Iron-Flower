@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System;
+using IronFlower;
 
 [RequireComponent(typeof(AudioSource))]
 public class SequentialAudioPlayer : MonoBehaviour
@@ -22,7 +23,10 @@ public class SequentialAudioPlayer : MonoBehaviour
 
     private int currentIndex = 0;
     private Coroutine revealCoroutine;
+    private Coroutine clipCoroutine;
     private bool isPlayingAudio = false;
+    
+    private bool isFinished = false;
 
     private void Reset()
     {
@@ -37,7 +41,72 @@ public class SequentialAudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        PlayClipsUntilNextStage();
+        
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.sceneLoadedEvent.AddListener(PlayClipsUntilNextStage);
+        GameEvents.playNextGuideClipEvent.AddListener(PlayClipsUntilNextStage);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.sceneLoadedEvent.RemoveListener(PlayClipsUntilNextStage);
+        GameEvents.playNextGuideClipEvent.RemoveListener(PlayClipsUntilNextStage);
+    }
+    
+    public void SkipCurrentStage()
+    {
+        // 停止当前播放
+        audioSource.Stop();
+        if (clipCoroutine != null)
+        {
+            StopCoroutine(clipCoroutine);
+        }
+        
+        Debug.Log("跳过当前阶段，currentIndex = " + currentIndex);
+    
+        // 根据当前索引确定下一阶段的起始索引
+        if (currentIndex < 2)
+        {
+            // 从阶段1跳到阶段2
+            currentIndex = 2;
+        }
+        else if (currentIndex == 2)
+        {
+            // 从阶段2跳到阶段3
+            currentIndex = 3;
+        }
+        else if (currentIndex <= 5)
+        {
+            // 从阶段3跳到阶段4
+            currentIndex = 6;
+        }
+        else if (currentIndex == 6)
+        {
+            // 从阶段4跳到阶段5
+            currentIndex = 7;
+        }
+        else if (currentIndex <= 8)
+        {
+            // 从阶段6跳到阶段7
+            currentIndex = 9;
+        }
+        else if (currentIndex == 9)
+        {
+            // 阶段7结束，重置
+            ResetPlayback();
+        }
+    
+        // 重置播放状态
+        isPlayingAudio = false;
+        
+        // 通知阶段已更改
+        OnReachedNextStage();
+        
+        // 播放新阶段的内容
+        clipCoroutine = StartCoroutine(PlayClipsUntilNextStageCoroutine());
     }
 
     private void PlayNextClip()
@@ -79,8 +148,6 @@ public class SequentialAudioPlayer : MonoBehaviour
         {
             Debug.LogWarning($"第 {currentIndex} 条 AudioClip 为空，跳过文本同步。");
         }
-
-        currentIndex++;
     }
 
     private IEnumerator PlayClipsUntilNextStageCoroutine()
@@ -94,36 +161,47 @@ public class SequentialAudioPlayer : MonoBehaviour
                 for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
                 {
                     PlayNextClip();
-                    yield return new WaitForSeconds(audioSource.clip.length);
+                    yield return new WaitUntil(() => !audioSource.isPlaying);
+                    currentIndex++;
                 }
             }
             else if (tmpIndex == 2)
             {
                 PlayNextClip();
+                yield return new WaitUntil(() => !audioSource.isPlaying);
+                currentIndex++;
             }
-            else if (tmpIndex < 5)
+            else if (tmpIndex == 3)
+            {
+                for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 3); i++)
+                {
+                    PlayNextClip();
+                    yield return new WaitUntil(() => !audioSource.isPlaying);
+                    currentIndex++;
+                }
+            }
+            else if (tmpIndex == 6)
+            {
+                PlayNextClip();
+                yield return new WaitUntil(() => !audioSource.isPlaying);
+                currentIndex++;
+            }
+            else if (tmpIndex == 7)
             {
                 for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
                 {
                     PlayNextClip();
-                    yield return new WaitForSeconds(audioSource.clip.length);
+                    yield return new WaitUntil(() => !audioSource.isPlaying);
+                    currentIndex++;
                 }
             }
-            else if (tmpIndex == 5)
+            else
             {
                 PlayNextClip();
-            }
-            else if (tmpIndex < 8)
-            {
-                for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
-                {
-                    PlayNextClip();
-                    yield return new WaitForSeconds(audioSource.clip.length);
-                }
-            }
-            else if (tmpIndex == 8)
-            {
-                PlayNextClip();
+                yield return new WaitUntil(() => !audioSource.isPlaying);
+                currentIndex++;
+                isFinished = true;
+                ResetPlayback();
             }
             isPlayingAudio = false;
         }
@@ -139,7 +217,16 @@ public class SequentialAudioPlayer : MonoBehaviour
 
     public void PlayClipsUntilNextStage()
     {
-        StartCoroutine(PlayClipsUntilNextStageCoroutine());
+        if (isFinished) return;
+        
+        if (isPlayingAudio)
+        {
+            SkipCurrentStage();    
+        }
+        else
+        {
+            clipCoroutine = StartCoroutine(PlayClipsUntilNextStageCoroutine());
+        }
     }
 
     private IEnumerator RevealTextCoroutine(float clipLength, int totalChars)
@@ -156,12 +243,15 @@ public class SequentialAudioPlayer : MonoBehaviour
 
             yield return null;
         }
-        // 播放结束，确保文字全显
-        guideText.maxVisibleCharacters = totalChars;
+        // // 播放结束，确保文字全显
+        // guideText.maxVisibleCharacters = totalChars;
+
+        guideText.text = "";
     }
 
     public void ResetPlayback()
     {
+        isFinished = true;
         currentIndex = 0;
         audioSource.Stop();
         if (revealCoroutine != null)

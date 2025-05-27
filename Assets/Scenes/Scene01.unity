@@ -676,21 +676,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bc8b93a9d9e67a047b525ea86d01ef94,
         type: 3}
-    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
-        type: 3}
-      propertyPath: progressSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
-        type: 3}
-      propertyPath: ironPickedSound
-      value: 
-      objectReference: {fileID: 8300000, guid: a66c88e477731ff4a92ef3336f16817d, type: 3}
-    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
-        type: 3}
-      propertyPath: ironDroppedSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 46360c3dd4cb17d42accf06c1f3669ef, type: 3}
     - target: {fileID: 7188043339962273395, guid: 54344209e1e42de44804a76b49f871b3,
         type: 3}
       propertyPath: m_Layer
@@ -1000,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 185186545494172259, guid: 78a56afadd287324996648e894d56975,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 185186545494172259, guid: 78a56afadd287324996648e894d56975,
         type: 3}
@@ -1101,6 +1086,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3395622585111547827, guid: 78a56afadd287324996648e894d56975,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3395622585111547827, guid: 78a56afadd287324996648e894d56975,
         type: 3}
