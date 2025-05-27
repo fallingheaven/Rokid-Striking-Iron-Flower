@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 using Rokid.UXR.Interaction;
 
@@ -11,6 +12,9 @@ namespace IronFlower
         [SerializeField] private float throwForce = 1.5f; // 甩动时的力
 
         public float dropletSize = 0.02f;
+        
+        public AudioClip pickedSound;
+        public AudioClip scoopUpSound;
 
         private GrabInteractable grabInteractable;
         private Throwable throwable;
@@ -112,6 +116,12 @@ namespace IronFlower
             if (other.CompareTag("IronLiquidContainer") && !hasIronLiquid)
             {
                 ScoopIronLiquid();
+                
+                // 播放舀起铁水的音效
+                if (pickedSound != null)
+                {
+                    AudioManager.Instance.PlayAudio(scoopUpSound, transform.position, 0.5f);
+                }
             }
         }
 
@@ -181,6 +191,14 @@ namespace IronFlower
         {
             hasIronLiquid = false;
             currentIronLiquid = null;
+        }
+        
+        public void PlayPickedSound()
+        {
+            if (pickedSound != null)
+            {
+                AudioManager.Instance.PlayAudio(pickedSound, transform.position, 0.5f);
+            }
         }
     }
 }

@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 552020400}
+  - component: {fileID: 552020401}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -156,6 +157,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &552020401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552020399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9e76cb32d844b6b475427a38e54656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: ebd218bb90ebc4241855061a8241da1a, type: 3}
+  volume: 0.03
 --- !u!1001 &599199003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +269,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1073267124237640068, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 20370466afae4664fa8439f032cc1516, type: 3}
+    - target: {fileID: 1073267124237640068, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: pickedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b2c62759897d1014cb038c6f2e0dab90, type: 3}
     - target: {fileID: 3469516395083248654, guid: 7be99d00b4b46e3459ce257b270b1dff,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -404,6 +429,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 8.145999
       objectReference: {fileID: 0}
+    - target: {fileID: 6510387015491466506, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: pickedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b2c62759897d1014cb038c6f2e0dab90, type: 3}
+    - target: {fileID: 6510387015491466506, guid: 7be99d00b4b46e3459ce257b270b1dff,
+        type: 3}
+      propertyPath: scoopUpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ae8fcd242226f07438e140529320cbeb, type: 3}
     - target: {fileID: 8224253313217477648, guid: 7be99d00b4b46e3459ce257b270b1dff,
         type: 3}
       propertyPath: m_LocalPosition.y

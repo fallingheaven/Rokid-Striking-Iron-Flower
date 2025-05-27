@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 using Rokid.UXR.Interaction;
 
@@ -8,6 +9,9 @@ namespace IronFlower
         [SerializeField] private float hitForceThreshold = 5.0f; // 触发击打效果的力阈值
         [SerializeField] private Transform hammerHead; // 锤子头部位置
         [SerializeField] private float strikeMultiplier = 2f;
+        
+        public AudioClip pickedSound; // 锤子被抓起时的音效
+        public AudioClip hitSound; // 锤子击打铁水时的音效
 
         private GrabInteractable grabInteractable;
         private Throwable throwable;
@@ -89,6 +93,8 @@ namespace IronFlower
                     TriggerIronFlowerEffect(hitPosition);
                     Debug.Log("锤子击中铁水，触发铁花效果！");
                     
+                    AudioManager.Instance.PlayAudio(hitSound, hitPosition, 0.5f);
+                    
                     Destroy(other.gameObject);
                 }
             }
@@ -103,6 +109,14 @@ namespace IronFlower
             hammerVelocity = hammerVelocity.normalized * strikeMultiplier;
                 
             GameEvents.OnIronLiquidHit(hitPosition, hammerVelocity);
+        }
+        
+        public void PlayPickedSound()
+        {
+            if (pickedSound != null)
+            {
+                AudioManager.Instance.PlayAudio(pickedSound, transform.position, 0.5f);
+            }
         }
     }
 }
