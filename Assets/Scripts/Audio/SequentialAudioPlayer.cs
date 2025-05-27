@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class SequentialAudioPlayer : MonoBehaviour
@@ -21,6 +22,7 @@ public class SequentialAudioPlayer : MonoBehaviour
 
     private int currentIndex = 0;
     private Coroutine revealCoroutine;
+    private bool isPlayingAudio = false;
 
     private void Reset()
     {
@@ -35,18 +37,7 @@ public class SequentialAudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        // 一开始不显示任何文字
-        if (guideText != null)
-        {
-            guideText.text = "";
-            guideText.maxVisibleCharacters = 0;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-            PlayNextClip();
+        PlayClipsUntilNextStage();
     }
 
     private void PlayNextClip()
@@ -90,6 +81,65 @@ public class SequentialAudioPlayer : MonoBehaviour
         }
 
         currentIndex++;
+    }
+
+    private IEnumerator PlayClipsUntilNextStageCoroutine()
+    {
+        int tmpIndex = currentIndex;
+        if (!isPlayingAudio)
+        {
+            isPlayingAudio = true;
+            if (tmpIndex < 2)
+            {
+                for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
+                {
+                    PlayNextClip();
+                    yield return new WaitForSeconds(audioSource.clip.length);
+                }
+            }
+            else if (tmpIndex == 2)
+            {
+                PlayNextClip();
+            }
+            else if (tmpIndex < 5)
+            {
+                for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
+                {
+                    PlayNextClip();
+                    yield return new WaitForSeconds(audioSource.clip.length);
+                }
+            }
+            else if (tmpIndex == 5)
+            {
+                PlayNextClip();
+            }
+            else if (tmpIndex < 8)
+            {
+                for (int i = tmpIndex; i < Math.Min(clipCollection.clips.Count, tmpIndex + 2); i++)
+                {
+                    PlayNextClip();
+                    yield return new WaitForSeconds(audioSource.clip.length);
+                }
+            }
+            else if (tmpIndex == 8)
+            {
+                PlayNextClip();
+            }
+            isPlayingAudio = false;
+        }
+
+        // 进入下一阶段
+        OnReachedNextStage();
+    }
+
+    private void OnReachedNextStage()
+    {
+        Debug.Log("当前阶段引导已播完，进入下一阶段，currentIndex = " + currentIndex);
+    }
+
+    public void PlayClipsUntilNextStage()
+    {
+        StartCoroutine(PlayClipsUntilNextStageCoroutine());
     }
 
     private IEnumerator RevealTextCoroutine(float clipLength, int totalChars)
