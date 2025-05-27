@@ -45,6 +45,13 @@ namespace IronFlower
                     effect.SendEvent("OnPlay");
                 }
             }
+            else
+            {
+                foreach (var effect in ironFlowerVFXList)
+                {
+                    effect.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }
