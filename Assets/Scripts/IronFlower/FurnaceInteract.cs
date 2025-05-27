@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using Rokid.UXR.Interaction;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,14 +20,33 @@ namespace IronFlower
         private float _currentBoostTime = 0f; // 当前速度提升剩余时间
         private float _currentSpeedMultiplier = 1.0f; // 当前速度倍率
 
+        public AudioClip ironPickedSound;
+        public AudioClip ironDroppedSound;
+        public AudioClip furnaceSound;
+        public AudioClip handFanSound;
+        
+        private AudioSource furnaceAudioSource;
+
         private void OnEnable()
         {
             GameEvents.handFanEvent.AddListener(OnHandFan);
+            
+            // 播放熔炉背景音效
+            if (furnaceSound != null)
+            {
+                furnaceAudioSource = AudioManager.Instance.PlayAudio(furnaceSound, transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.LogWarning("Furnace sound clip is not assigned.");
+            }
         }
 
         private void OnDisable()
         {
             GameEvents.handFanEvent.RemoveListener(OnHandFan);
+            
+            furnaceAudioSource?.Stop();
         }
 
         private void Update()
@@ -68,6 +88,8 @@ namespace IronFlower
             {
                 Debug.Log("Iron block entered the furnace.");
                 _ironFilled = true;
+                
+                AudioManager.Instance.PlayAudio(ironDroppedSound, other.transform.position, 0.15f);
             }
         }
 
@@ -92,9 +114,21 @@ namespace IronFlower
             
             // 增加或刷新速度提升时间
             _currentBoostTime = Mathf.Max(_currentBoostTime, speedBoostDuration * boostIncrease);
-            
-            // 可视化反馈（可选）
-            // TODO: 添加粒子效果或变色效果表示加速
+
+            if (Camera.main != null)
+                AudioManager.Instance.PlayAudio(handFanSound, Camera.main.transform.position, 0.5f);
+        }
+        
+        public void PlayIronPickedSound(Transform ironTransform)
+        {
+            if (ironPickedSound != null)
+            {
+                AudioManager.Instance.PlayAudio(ironPickedSound, ironTransform.position, 0.5f);
+            }
+            else
+            {
+                Debug.LogWarning("Iron picked sound clip is not assigned.");
+            }
         }
     }
 }

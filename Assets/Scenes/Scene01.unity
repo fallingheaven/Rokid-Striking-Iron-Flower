@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &60406632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1220325404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa942e37c9a5f44cbe3ff6f5ff3a3ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &60406633 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7242700527737143184, guid: 54344209e1e42de44804a76b49f871b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1220325404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &260696970
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 260696971}
+  - component: {fileID: 260696972}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -156,6 +175,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260696972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260696970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9e76cb32d844b6b475427a38e54656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: 9d114f86540c1394c813b617d3d54033, type: 3}
+  volume: 0.1
 --- !u!4 &891063630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 249741958971966781, guid: 54344209e1e42de44804a76b49f871b3,
@@ -587,6 +620,46 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 60406632}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayIronPickedSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IronFlower.FurnaceInteract, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 60406633}
+    - target: {fileID: 6859490128873199083, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: OnPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Transform, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6883021881292897653, guid: 54344209e1e42de44804a76b49f871b3,
         type: 3}
       propertyPath: m_Value
@@ -603,6 +676,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bc8b93a9d9e67a047b525ea86d01ef94,
         type: 3}
+    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: progressSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: ironPickedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a66c88e477731ff4a92ef3336f16817d, type: 3}
+    - target: {fileID: 7066632157946090774, guid: 54344209e1e42de44804a76b49f871b3,
+        type: 3}
+      propertyPath: ironDroppedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 46360c3dd4cb17d42accf06c1f3669ef, type: 3}
     - target: {fileID: 7188043339962273395, guid: 54344209e1e42de44804a76b49f871b3,
         type: 3}
       propertyPath: m_Layer

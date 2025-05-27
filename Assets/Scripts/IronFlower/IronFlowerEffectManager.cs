@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -11,6 +14,10 @@ namespace IronFlower
         private bool _firstTime = true;
         public static Vector3 directionOffset = new Vector3(-0.6f, -0.6f, -0.6f);
         
+        public AudioClip ironFlowerFinishSound;
+        public AudioClip firstIronFlowerSound;
+        
+        
         private void OnEnable()
         {
             // 订阅铁水击中事件
@@ -22,7 +29,7 @@ namespace IronFlower
             // 取消订阅事件
             GameEvents.ironLiquidHitEvent.RemoveListener(OnIronLiquidHit);
         }
-        
+
         private void OnIronLiquidHit(Vector3 hitPosition, Vector3 hitForce)
         {
             // 向上方向为基础方向
@@ -36,6 +43,8 @@ namespace IronFlower
             // ironFlowerVFX.Play();
             ironFlowerVFX.SendEvent("OnPlay");
 
+            StartCoroutine(DelayPlayFinishSound());
+
             if (_firstTime)
             {
                 _firstTime = false;
@@ -44,6 +53,8 @@ namespace IronFlower
                 {
                     effect.SendEvent("OnPlay");
                 }
+
+                AudioManager.Instance.PlayAudio(firstIronFlowerSound, Camera.main.transform.position, 0.1f);
             }
             else
             {
@@ -52,6 +63,12 @@ namespace IronFlower
                     effect.gameObject.SetActive(false);
                 }
             }
+        }
+
+        private IEnumerator DelayPlayFinishSound()
+        {
+            yield return new WaitForSeconds(3f);
+            AudioManager.Instance.PlayAudio(ironFlowerFinishSound, Camera.main.transform.position, 0.05f);
         }
     }
 }

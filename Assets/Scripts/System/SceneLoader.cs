@@ -36,7 +36,7 @@ namespace IronFlower
 
         [Header("场景设置")]
         [SerializeField] private string persistentSceneName = "Persistent"; // 常驻场景名称
-        [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
+        // [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
         
         // 场景数据字典，用于场景间传递数据
         private static Dictionary<string, object> sceneData = new Dictionary<string, object>();
@@ -58,7 +58,7 @@ namespace IronFlower
 
         private void OnEnable()
         {
-            LoadSceneKeepPersistent(initialSceneName);
+            // LoadSceneKeepPersistent(initialSceneName);
         }
 
         /// <summary>
@@ -106,12 +106,17 @@ namespace IronFlower
             _currentSceneName = sceneName;
         }
         
+        public void LoadSceneKeepPersistent(string sceneName)
+        {
+            LoadSceneKeepPersistent(sceneName, true);
+        }
+        
         /// <summary>
         /// 加载场景并保持常驻场景不变
         /// </summary>
         /// <param name="sceneName">要加载的场景名称</param>
         /// <param name="unloadCurrent">是否卸载当前场景（不包括常驻场景）</param>
-        public void LoadSceneKeepPersistent(string sceneName, bool unloadCurrent = true)
+        public void LoadSceneKeepPersistent(string sceneName, bool unloadCurrent)
         {
             if (progressBar != null)
                 progressBar.value = 0f;
@@ -346,6 +351,16 @@ namespace IronFlower
                 _currentSceneName = persistentSceneName;
                 
             return SceneManager.UnloadSceneAsync(sceneName);
+        }
+        
+        public void EndGame()
+        {
+            // 退出游戏
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private IEnumerator FadeIn()
