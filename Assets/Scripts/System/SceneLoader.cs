@@ -36,7 +36,7 @@ namespace IronFlower
 
         [Header("场景设置")]
         [SerializeField] private string persistentSceneName = "Persistent"; // 常驻场景名称
-        // [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
+        [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
         
         // 场景数据字典，用于场景间传递数据
         private static Dictionary<string, object> sceneData = new Dictionary<string, object>();
@@ -58,7 +58,7 @@ namespace IronFlower
 
         private void OnEnable()
         {
-            // LoadSceneKeepPersistent(initialSceneName);
+            LoadSceneKeepPersistent(initialSceneName);
         }
 
         /// <summary>

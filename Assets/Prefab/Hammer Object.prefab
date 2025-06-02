@@ -40,6 +40,7 @@ Transform:
   - {fileID: 1894594926188618137}
   - {fileID: 3295250980086018935}
   - {fileID: 6586185840679919259}
+  - {fileID: 8803115314727469104}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -195,6 +196,8 @@ MonoBehaviour:
   hitForceThreshold: 5
   hammerHead: {fileID: 0}
   strikeMultiplier: 2
+  pickedSound: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!65 &3089469093297486530
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -293,6 +296,37 @@ MonoBehaviour:
       m_Calls: []
   interactable: {fileID: 0}
   allowRelease: 0
+--- !u!1 &4608949325980439786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8803115314727469104}
+  m_Layer: 0
+  m_Name: Grab Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8803115314727469104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608949325980439786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7670593267749293665}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5858919190321561943
 GameObject:
   m_ObjectHideFlags: 0

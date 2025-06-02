@@ -21,6 +21,8 @@ public class SequentialAudioPlayer : MonoBehaviour
     [Tooltip("1 = 与音频同步；>1 = 在音频结束前完成；<1 = 更慢")]
     public float revealSpeedMultiplier = 5.0f;
 
+    public GameObject finalMenu;
+
     private int currentIndex = 0;
     private Coroutine revealCoroutine;
     private Coroutine clipCoroutine;
@@ -260,5 +262,7 @@ public class SequentialAudioPlayer : MonoBehaviour
             revealCoroutine = null;
         }
         guideText.maxVisibleCharacters = 0;
+        
+        finalMenu.gameObject.SetActive(true);
     }
 }

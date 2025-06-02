@@ -12,7 +12,6 @@ namespace IronFlower
         [SerializeField] private VisualEffect ironFlowerVFX;
         public List<VisualEffect> ironFlowerVFXList;
         private bool _firstTime = true;
-        public static Vector3 directionOffset = new Vector3(-0.6f, -0.6f, -0.6f);
         
         public AudioClip ironFlowerFinishSound;
         public AudioClip firstIronFlowerSound;
@@ -32,12 +31,9 @@ namespace IronFlower
 
         private void OnIronLiquidHit(Vector3 hitPosition, Vector3 hitForce)
         {
-            // 向上方向为基础方向
-            Vector3 direction = directionOffset + hitForce;
-            
             // 设置参数
             ironFlowerVFX.SetVector3("Position", hitPosition - transform.position);
-            ironFlowerVFX.SetVector3("MainDirection", direction);
+            ironFlowerVFX.SetVector3("MainDirection", hitForce.normalized * 12f);
             
             // 开始播放
             // ironFlowerVFX.Play();

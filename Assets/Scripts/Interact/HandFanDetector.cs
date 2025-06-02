@@ -65,7 +65,7 @@ namespace IronFlower
             // 计算移动速度和距离
             float speed = movement.y / Time.deltaTime;
             
-            Debug.Log($"位置：{currentHandPosition} 速度：{speed}，方向：{movement.normalized}");
+            // Debug.Log($"位置：{currentHandPosition} 速度：{speed}，方向：{movement.normalized}");
             
             // 检测是否满足扇动条件
             if (speed >= minSwipeSpeed)
@@ -76,7 +76,7 @@ namespace IronFlower
                 // 更新冷却时间
                 lastFanTime = Time.time;
                 
-                Debug.Log($"检测到手部扇动！速度：{speed}，方向：{movement.normalized}");
+                // Debug.Log($"检测到手部扇动！速度：{speed}，方向：{movement.normalized}");
             }
             
             // 更新上一帧手部位置
