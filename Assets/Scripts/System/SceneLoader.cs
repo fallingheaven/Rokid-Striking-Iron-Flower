@@ -36,7 +36,7 @@ namespace IronFlower
 
         [Header("场景设置")]
         [SerializeField] private string persistentSceneName = "Persistent"; // 常驻场景名称
-        // [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
+        [SerializeField] private string initialSceneName = "Scene01"; // 初始场景名称
         
         // 场景数据字典，用于场景间传递数据
         private static Dictionary<string, object> sceneData = new Dictionary<string, object>();
@@ -58,7 +58,7 @@ namespace IronFlower
 
         private void OnEnable()
         {
-            // LoadSceneKeepPersistent(initialSceneName);
+            LoadSceneKeepPersistent(initialSceneName);
         }
 
         /// <summary>
@@ -96,15 +96,15 @@ namespace IronFlower
             sceneData.Clear();
         }
 
-        /// <summary>
-        /// 同步加载场景（单场景模式，会卸载其他所有场景包括常驻场景）
-        /// </summary>
-        /// <param name="sceneName">场景名称</param>
-        public void LoadScene(string sceneName)
-        {
-            SceneManager.LoadScene(sceneName);
-            _currentSceneName = sceneName;
-        }
+        // /// <summary>
+        // /// 同步加载场景（单场景模式，会卸载其他所有场景包括常驻场景）
+        // /// </summary>
+        // /// <param name="sceneName">场景名称</param>
+        // public void LoadScene(string sceneName)
+        // {
+        //     SceneManager.LoadScene(sceneName);
+        //     _currentSceneName = sceneName;
+        // }
         
         public void LoadSceneKeepPersistent(string sceneName)
         {
@@ -254,86 +254,88 @@ namespace IronFlower
 
             // 隐藏加载界面
             loadingScreen?.SetActive(false);
+            
+            GameEvents.OnSceneLoaded();
         }
 
-        /// <summary>
-        /// 异步加载场景，带加载界面和进度条
-        /// </summary>
-        /// <param name="sceneName">场景名称</param>
-        /// <param name="onSceneLoaded">场景加载完成的回调</param>
-        public void LoadSceneAsync(string sceneName, Action onSceneLoaded = null)
-        {
-            if (progressBar != null)
-                progressBar.value = 0f;
-            if (progressText != null)
-                progressText.text = $"Loading: 0%";
-            
-            StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onSceneLoaded));
-        }
-
-        private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action onSceneLoaded)
-        {
-            // 显示加载界面
-            if (loadingScreen != null)
-                loadingScreen.SetActive(true);
-
-            // 淡入效果
-            yield return StartCoroutine(FadeIn());
-            
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                if (SceneManager.GetSceneAt(i).name == sceneName)
-                {
-                    Debug.Log($"场景 {sceneName} 已加载，将设为活动场景");
-                    Scene loadedScene = SceneManager.GetSceneAt(i);
-                    yield return null;
-                    SceneManager.SetActiveScene(loadedScene);
-                    _currentSceneName = sceneName;
-                    yield return StartCoroutine(FadeOut());
-                    loadingScreen?.SetActive(false);
-                    yield break;
-                }
-            }
-
-            // 开始异步加载场景
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-            asyncOperation.allowSceneActivation = false;
-
-            // 更新进度条
-            while (!asyncOperation.isDone)
-            {
-                // 进度值在0-0.9之间，加载完成时为0.9
-                float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-
-                if (progressBar != null)
-                    progressBar.value = progress;
-
-                if (progressText != null)
-                    progressText.text = $"加载中：{(int)(progress * 100)}%";
-
-                // 当加载进度到达0.9（即100%）时，允许场景激活
-                if (asyncOperation.progress >= 0.9f)
-                {
-                    // 等待一小段时间，让用户看到100%的进度
-                    yield return new WaitForSeconds(0.2f);
-                    asyncOperation.allowSceneActivation = true;
-                }
-
-                yield return null;
-            }
-            
-            _currentSceneName = sceneName;
-
-            // 淡出效果
-            yield return StartCoroutine(FadeOut());
-
-            // 隐藏加载界面
-            if (loadingScreen != null)
-                loadingScreen.SetActive(false);
-
-            // 调用回调
-            onSceneLoaded?.Invoke();
-        }
+        // /// <summary>
+        // /// 异步加载场景，带加载界面和进度条
+        // /// </summary>
+        // /// <param name="sceneName">场景名称</param>
+        // /// <param name="onSceneLoaded">场景加载完成的回调</param>
+        // public void LoadSceneAsync(string sceneName, Action onSceneLoaded = null)
+        // {
+        //     if (progressBar != null)
+        //         progressBar.value = 0f;
+        //     if (progressText != null)
+        //         progressText.text = $"Loading: 0%";
+        //     
+        //     StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onSceneLoaded));
+        // }
+        //
+        // private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action onSceneLoaded)
+        // {
+        //     // 显示加载界面
+        //     if (loadingScreen != null)
+        //         loadingScreen.SetActive(true);
+        //
+        //     // 淡入效果
+        //     yield return StartCoroutine(FadeIn());
+        //     
+        //     for (int i = 0; i < SceneManager.sceneCount; i++)
+        //     {
+        //         if (SceneManager.GetSceneAt(i).name == sceneName)
+        //         {
+        //             Debug.Log($"场景 {sceneName} 已加载，将设为活动场景");
+        //             Scene loadedScene = SceneManager.GetSceneAt(i);
+        //             yield return null;
+        //             SceneManager.SetActiveScene(loadedScene);
+        //             _currentSceneName = sceneName;
+        //             yield return StartCoroutine(FadeOut());
+        //             loadingScreen?.SetActive(false);
+        //             yield break;
+        //         }
+        //     }
+        //
+        //     // 开始异步加载场景
+        //     AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        //     asyncOperation.allowSceneActivation = false;
+        //
+        //     // 更新进度条
+        //     while (!asyncOperation.isDone)
+        //     {
+        //         // 进度值在0-0.9之间，加载完成时为0.9
+        //         float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+        //
+        //         if (progressBar != null)
+        //             progressBar.value = progress;
+        //
+        //         if (progressText != null)
+        //             progressText.text = $"加载中：{(int)(progress * 100)}%";
+        //
+        //         // 当加载进度到达0.9（即100%）时，允许场景激活
+        //         if (asyncOperation.progress >= 0.9f)
+        //         {
+        //             // 等待一小段时间，让用户看到100%的进度
+        //             yield return new WaitForSeconds(0.2f);
+        //             asyncOperation.allowSceneActivation = true;
+        //         }
+        //
+        //         yield return null;
+        //     }
+        //     
+        //     _currentSceneName = sceneName;
+        //
+        //     // 淡出效果
+        //     yield return StartCoroutine(FadeOut());
+        //
+        //     // 隐藏加载界面
+        //     if (loadingScreen != null)
+        //         loadingScreen.SetActive(false);
+        //
+        //     // 调用回调
+        //     onSceneLoaded?.Invoke();
+        // }
         
         /// <summary>
         /// 卸载指定场景（但不会卸载常驻场景）

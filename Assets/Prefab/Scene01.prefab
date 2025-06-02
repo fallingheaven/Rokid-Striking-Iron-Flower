@@ -809,6 +809,10 @@ MonoBehaviour:
   speedBoostDuration: 1.5
   speedBoostMultiplier: 4
   _ironFilled: 0
+  ironPickedSound: {fileID: 8300000, guid: a66c88e477731ff4a92ef3336f16817d, type: 3}
+  ironDroppedSound: {fileID: 8300000, guid: 46360c3dd4cb17d42accf06c1f3669ef, type: 3}
+  furnaceSound: {fileID: 8300000, guid: 8b3c829f0eac18e469a180e96c664bba, type: 3}
+  handFanSound: {fileID: 8300000, guid: cb70871c603285d4f9115bed56a42900, type: 3}
 --- !u!4 &868413998284324697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 448020725488648339, guid: b3ebd2738f9c0894480fa2e5203496d2,

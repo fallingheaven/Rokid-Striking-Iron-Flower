@@ -22,7 +22,6 @@ namespace IronFlower
         private bool hasIronLiquid = false;
 
         private Rigidbody rb;
-        private VelocityEstimator velocityEstimator; // 添加速度估算器
         
         private void OnEnable()
         {
@@ -41,7 +40,6 @@ namespace IronFlower
             grabInteractable = GetComponent<GrabInteractable>();
             throwable = GetComponent<Throwable>();
             rb = GetComponent<Rigidbody>();
-            velocityEstimator = GetComponent<VelocityEstimator>(); // 获取速度估算器组件
 
             // 监听抓取事件
             if (throwable != null)
@@ -55,12 +53,6 @@ namespace IronFlower
         {
             // 当勺子被抓起时的逻辑
             Debug.Log("勺子被抓起");
-
-            // 开始估算速度
-            if (velocityEstimator != null)
-            {
-                velocityEstimator.BeginEstimatingVelocity();
-            }
         }
         
         private void OnHeldUpdate()
@@ -71,43 +63,6 @@ namespace IronFlower
 
             // 检测甩动动作
             // CheckThrowMotion();
-        }
-
-        private void FollowHandOrientation()
-        {
-            if (grabInteractable.grabbedToHand != null)
-            {
-                // 使用Rokid SDK提供的抓取点数据
-                GrabbedObject? grabbedInfo = grabInteractable.grabbedToHand.currentGrabbedObjectInfo;
-
-                if (grabbedInfo.HasValue)
-                {
-                    // 获取手部抓取点位置和旋转
-                    Transform attachPoint = grabbedInfo.Value.handAttachmentPointTransform;
-
-                    // 应用物理更新方式
-                    rb.MovePosition(attachPoint.position);
-                    rb.MoveRotation(attachPoint.rotation * Quaternion.Euler(30, 0, 0));
-                }
-            }
-        }
-
-        private void CheckThrowMotion()
-        {
-            // 检测甩动动作的逻辑
-            if (grabInteractable.grabbedToHand != null && hasIronLiquid)
-            {
-                // 使用速度估算器获取速度
-                Vector3 estimatedVelocity = velocityEstimator != null
-                    ? velocityEstimator.GetVelocityEstimate()
-                    : rb.velocity;
-                
-                // 检测快速向上甩动
-                if (estimatedVelocity.magnitude > throwVelocityThreshold)
-                {
-                    ThrowIronLiquid();
-                }
-            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -151,39 +106,6 @@ namespace IronFlower
                 }
 
                 Debug.Log("舀起铁水");
-            }
-        }
-
-        private void ThrowIronLiquid()
-        {
-            if (hasIronLiquid && currentIronLiquid != null)
-            {
-                // 铁水被甩出的逻辑
-                hasIronLiquid = false;
-
-                // 分离铁水并添加物理效果
-                currentIronLiquid.transform.parent = null;
-
-                Rigidbody ironRb = currentIronLiquid.GetComponent<Rigidbody>();
-                if (ironRb == null)
-                    ironRb = currentIronLiquid.AddComponent<Rigidbody>();
-
-                // 使用速度估算器获取速度
-                Vector3 estimatedVelocity = velocityEstimator != null
-                    ? velocityEstimator.GetVelocityEstimate()
-                    : rb.velocity;
-
-                // 应用甩出的力
-                ironRb.isKinematic = false;
-                // ironRb.velocity = estimatedVelocity * 1.5f;
-                ironRb.AddForce(estimatedVelocity.normalized * throwForce, ForceMode.Impulse);
-
-                // 发送铁水被甩出的事件
-                GameEvents.OnIronLiquidThrown(currentIronLiquid);
-
-                currentIronLiquid = null;
-
-                Debug.Log("铁水被甩出");
             }
         }
         

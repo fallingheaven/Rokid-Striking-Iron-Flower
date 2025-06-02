@@ -1,3 +1,4 @@
+using System.Collections;
 using Audio;
 using UnityEngine;
 using Rokid.UXR.Interaction;
@@ -67,6 +68,9 @@ namespace IronFlower
             }
         }
 
+        private bool enableToPlay = true;
+        private int playNextStageCount = 2;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("IronLiquid"))
@@ -93,11 +97,27 @@ namespace IronFlower
                     TriggerIronFlowerEffect(hitPosition);
                     Debug.Log("锤子击中铁水，触发铁花效果！");
                     
-                    AudioManager.Instance.PlayAudio(hitSound, hitPosition, 0.5f);
+                    AudioManager.Instance.PlayAudio(hitSound, hitPosition, 0.2f);
+
+                    if (playNextStageCount > 0 && enableToPlay)
+                    {
+                        enableToPlay = false;
+                        playNextStageCount--;
+                        GameEvents.OnPlayNextGuideClip();
+
+                        StartCoroutine(DelayEnable());
+                    }
                     
                     Destroy(other.gameObject);
                 }
             }
+        }
+
+        private IEnumerator DelayEnable()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            enableToPlay = true;
         }
 
         private void TriggerIronFlowerEffect(Vector3 hitPosition)
@@ -111,11 +131,19 @@ namespace IronFlower
             GameEvents.OnIronLiquidHit(hitPosition, hammerVelocity);
         }
         
+        private bool firstPick = true;
+        
         public void PlayPickedSound()
         {
             if (pickedSound != null)
             {
                 AudioManager.Instance.PlayAudio(pickedSound, transform.position, 0.5f);
+            }
+            
+            if (firstPick)
+            {
+                GameEvents.OnPlayNextGuideClip();
+                firstPick = false;
             }
         }
     }
