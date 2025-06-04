@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: a57cbbeea348cf849991df1a901f1e75, type: 3}
   - {fileID: 8300000, guid: 256fb6e681da1bd4bbcfec6f2cdc8293, type: 3}
   - {fileID: 0}
   - {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 51dea6a6b8a5b06408cecad48d69de60, type: 3}
   texts:
   - 
-  - 
+  - "\u770B\u5230\u773C\u524D\u7684\u94C1\u952D\u4E86\u5417\uFF1F\u9996\u5148\uFF0C\u4F38\u51FA\u53CC\u624B\uFF0C\u6293\u4F4F\u94C1\u952D\uFF0C\u62FF\u8D77\u6765\u653E\u5230\u65C1\u8FB9\u7684\u7194\u7089\u4E0A"
   - "\u73B0\u5728\uFF0C\u8BF7\u4F60\u671D\u7194\u7089\u8F7B\u8F7B\u6247\u52A8\u624B\u638C\uFF0C\u4E3A\u7089\u706B\u6DFB\u4E00\u628A\u98CE\uFF01\u4F60\u7684\u4E00\u70B9\u52A9\u529B\uFF0C\u5C31\u80FD\u52A0\u5FEB\u94C1\u5757\u7684\u878D\u5316\u901F\u5EA6\u3002\u6765\u5427\uFF0C\u8BA9\u6211\u4EEC\u4E00\u540C\u5524\u9192\u8FD9\u6C89\u7761\u7684\u706B\u7075\uFF01"
   - 
   - 

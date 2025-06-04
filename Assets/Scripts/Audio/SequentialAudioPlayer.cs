@@ -200,6 +200,12 @@ public class SequentialAudioPlayer : MonoBehaviour
             else
             {
                 PlayNextClip();
+                
+                if (tmpIndex == 9)
+                {
+                    finalMenu.SetActive(true);
+                }
+                
                 yield return new WaitUntil(() => !audioSource.isPlaying);
                 currentIndex++;
                 isFinished = true;
@@ -262,7 +268,5 @@ public class SequentialAudioPlayer : MonoBehaviour
             revealCoroutine = null;
         }
         guideText.maxVisibleCharacters = 0;
-        
-        finalMenu.gameObject.SetActive(true);
     }
 }

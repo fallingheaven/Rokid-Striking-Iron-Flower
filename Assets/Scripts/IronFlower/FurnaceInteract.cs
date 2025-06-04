@@ -34,7 +34,7 @@ namespace IronFlower
             // 播放熔炉背景音效
             if (furnaceSound != null)
             {
-                furnaceAudioSource = AudioManager.Instance.PlayAudio(furnaceSound, transform.position, 0.5f);
+                furnaceAudioSource = AudioManager.Instance.PlayAudio(furnaceSound, transform.position, 0.7f);
             }
             else
             {
