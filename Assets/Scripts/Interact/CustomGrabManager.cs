@@ -10,6 +10,8 @@ public class CustomGrabManager : MonoBehaviour
     private bool wasGrabbed = false;
     private CustomDraggable draggable;
     
+    private Quaternion lastRotation;
+    
     // 控制参数
     public bool keepGrabbed = true; // 是否保持抓取状态
     
@@ -47,7 +49,7 @@ public class CustomGrabManager : MonoBehaviour
     // 当物体被抓取时记录抓取它的手
     private void OnObjectGrabbed(HandType handType, GameObject grabbedObject)
     {
-        if (grabbedObject != this.gameObject) return;
+        if (grabbedObject != this.gameObject) return; 
         
         wasGrabbed = true;
         
@@ -77,6 +79,8 @@ public class CustomGrabManager : MonoBehaviour
         
         Debug.Log($"{gameObject.name} 被释放 {transform.position}");
 
+        lastRotation = transform.localRotation;
+
         // 这里可以添加额外的代码来处理释放时的行为
         // 例如，你可能想让物体停留在当前位置，或者跟随手部移动但不完全依附
     }
@@ -87,17 +91,21 @@ public class CustomGrabManager : MonoBehaviour
     
         // 仅在我们需要的情况下尝试抓取
         if (wasGrabbed) return;
+        
+        wasGrabbed = true;
+        lastHoldingHand = hand;
     
         Debug.Log($"OnHandHoverBegin 被 SendMessage 调用: {hand.handType} {gameObject.name}");
         
-        transform.position = hand.transform.position;
-        transform.position += draggable.grabbedOffset.localPosition;
+        Debug.Log(draggable.grabbedOffset.localPosition);
+        // transform.position = hand.hoveringInteractable.transform.position + draggable.grabbedOffset.localPosition;
+        // transform.position = hand.transform.position;
+        // transform.position -= draggable.grabbedOffset.localPosition;
 
         hand.GrabObject(gameObject, GrabTypes.Pinch,
             GrabFlags.DetachOthers | GrabFlags.ParentToHand | GrabFlags.TurnOffGravity | GrabFlags.TurnOnKinematic);
         
-        wasGrabbed = true;
-        lastHoldingHand = hand;
+        transform.localPosition = draggable.grabbedOffset.localPosition;
     }
 
     private void OnTrackSuccess(HandType handType)
@@ -117,19 +125,21 @@ public class CustomGrabManager : MonoBehaviour
     {
         // 等待一帧，让手的位置更新
         yield return null;
+        
+        wasGrabbed = true;
 
         transform.position = lastHoldingHand.transform.position;
-        transform.position += draggable.grabbedOffset.localPosition;
     
         // 进行抓取
         lastHoldingHand.GrabObject(gameObject, GrabTypes.Pinch,
             GrabFlags.DetachOthers | GrabFlags.ParentToHand | GrabFlags.TurnOffGravity | GrabFlags.TurnOnKinematic);
-        
-    
-        wasGrabbed = true;
+
+        transform.localPosition = draggable.grabbedOffset.localPosition;
+        transform.localRotation = lastRotation;
     
         // 记录此时的位置，方便调试
-        Debug.Log($"重新抓取物体 {gameObject.name} 位置: {transform.position} 局部位置: {transform.localPosition}");
+        Debug.Log(
+            $"重新抓取物体 {gameObject.name} 位置: {transform.position} 局部位置: {transform.localPosition} offset位置:{draggable.grabbedOffset.localPosition} 当前offset位置：{transform.localPosition}");
     }
     
 }
